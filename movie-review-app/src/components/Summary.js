@@ -1,13 +1,13 @@
 import React from 'react';
-import '../App.css'; // Import the CSS file
-import { useNavigate } from 'react-router-dom';
-
+import { useLocation, useNavigate } from 'react-router-dom';
+import '../App.css';
 
 function Summary() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const movieTitle = location.state?.movieTitle || 'this movie';
 
-  // Hardcoded summary
-  const summary = "Inception is widely praised for its complex narrative, stunning visuals, and thought-provoking themes. Users particularly enjoyed the performances of Leonardo DiCaprio and the mind-bending plot twists.";
+  const summary = `${movieTitle} is widely praised for its complex narrative, stunning visuals, and thought-provoking themes. Users particularly enjoyed the performances and the engaging plot twists.`;
 
   return (
     <div className="container">

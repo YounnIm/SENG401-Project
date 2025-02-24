@@ -101,3 +101,29 @@ footer {
 .nav-button:hover {
   background-color: #0056b3; /* Darker blue */
 }
+
+.review-section {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #2a2a2a;
+  border-radius: 5px;
+}
+
+.review-section h2 {
+  color: #ffffff;
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: none;
+}
+
+.review-display {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #333;
+  border-radius: 5px;
+}
