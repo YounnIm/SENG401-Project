@@ -1,14 +1,15 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../App.css';
 
 function MovieList() {
   const navigate = useNavigate();
 
-  // Hardcoded movie list remove when adding backend/database
+  // Hardcoded movie list with images
   const movies = [
-    { id: 1, title: 'Inception' },
-    { id: 2, title: 'Interstellar' },
-    { id: 3, title: 'The Dark Knight' },
+    { id: 1, title: 'Inception', image: 'https://image.tmdb.org/t/p/w1280/ljsZTbVsrQSqZgWeep2B1QiDKuh.jpg' },
+    { id: 2, title: 'Mufasa: The Lion King', image: 'https://image.tmdb.org/t/p/w1280/9bXHaLlsFYpJUutg4E6WXAjaxDi.jpg' },
+    { id: 3, title: 'Captain America: Brave New World', image: 'https://image.tmdb.org/t/p/w1280/pzIddUEMWhWzfvLI3TwxUG2wGoi.jpg' },
   ];
 
   const handleMovieClick = (movieId) => {
@@ -16,15 +17,17 @@ function MovieList() {
   };
 
   return (
-    <div>
+    <div className="container">
       <h1>Movie List</h1>
-      <ul>
+      <div className="movie-list">
         {movies.map((movie) => (
-          <li key={movie.id} onClick={() => handleMovieClick(movie.id)}>
-            {movie.title}
-          </li>
+          <div key={movie.id} className="movie-item" onClick={() => handleMovieClick(movie.id)}>
+            <img src={movie.image} alt={movie.title} />
+            <h3>{movie.title}</h3>
+          </div>
         ))}
-      </ul>
+      </div>
+      <button className="nav-button" onClick={() => navigate('/')}>Back to Login</button>
     </div>
   );
 }

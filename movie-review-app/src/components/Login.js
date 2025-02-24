@@ -1,16 +1,16 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../App.css';
 
 function Login() {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    // Simulate login (no backend)
     navigate('/movies');
   };
 
   return (
-    <div>
+    <div className="container">
       <h1>Login</h1>
       <form>
         <input type="text" placeholder="Username" />
