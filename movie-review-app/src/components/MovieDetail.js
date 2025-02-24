@@ -27,7 +27,7 @@ function MovieDetail() {
   return (
     <div className="container">
       <h1>{movie.title}</h1>
-      <img src={movie.image} alt={movie.title} />
+      <img src={movie.image} alt={movie.title} className="movie-poster" />
       <p>{movie.description}</p>
 
       <button onClick={handleSummarize}>Summarize Feedback</button>
