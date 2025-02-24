@@ -1,8 +1,10 @@
-# Getting Started with Create React App
+# Movie Review App
+
+This project is a website that allows its user to view movies that have come out and analyse its reviews and its details. Users can also submit there own reviews into the database to let others know what they feel. At the bottom of this review page there will be a summarize button that allows users to send reviews to an LLM to then summarize the feedback from users to a digestable summary highlighting details submitted by multiple users.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## React Information
 
 In the project directory, you can run:
 
