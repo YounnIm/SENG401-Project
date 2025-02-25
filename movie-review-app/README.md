@@ -15,7 +15,7 @@ Essentially our app will:
 - Review Summarization
 
 
-Considering the Non-functional requirements, the app will have a user friendlt UI/UX, will be useable in many different resolutions, display accurate summaries based on stored/user reviews, and be responsive in general. These non-functional requirements are extremely important as they can greatly enhance the users experience (As well as some of these requirements being a necassary part of the project).
+Considering the Non-functional requirements, the app will have a user friendly UI/UX, will be useable in many different resolutions, display accurate summaries based on stored/user reviews, and be responsive in general. These non-functional requirements are extremely important as they can greatly enhance the users experience (As well as some of these requirements being a necassary part of the project).
 
 Essentially our app will:
 - Have User Friendly UI/UX
