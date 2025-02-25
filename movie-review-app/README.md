@@ -4,6 +4,26 @@ This project is a website that allows its user to view movies that have come out
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Functional/Non Functional Requirements
+
+Considering the functional requirements, this app will allow users to log in, allow users to select a movie, allow members to submit movie reviews, and allow users to obtain a summarized description of the movie from the LLM. These are the main functional requirements of the system and are imperative to implement to achieve our goal with our idea.
+
+Essentially our app will:
+- Have User Authentication
+- Movie Selection
+- Review Submission
+- Review Summarization
+
+
+Considering the Non-functional requirements, the app will have a user friendlt UI/UX, will be useable in many different resolutions, display accurate summaries based on stored/user reviews, and be responsive in general. These non-functional requirements are extremely important as they can greatly enhance the users experience (As well as some of these requirements being a necassary part of the project).
+
+Essentially our app will:
+- Have User Friendly UI/UX
+- Responsive Design
+- Accurate Summaries
+- Good Performance and Responsiveness
+  
+
 ## React Information
 
 In the project directory, you can run:
