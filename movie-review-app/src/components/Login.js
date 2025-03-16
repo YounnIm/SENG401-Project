@@ -13,6 +13,8 @@ function Login() {
     navigate('/movies');
   };
 
+  //Admin button is a PLACEHOLDER, will just have a specical login but we need more backend and database
+
   return (
     <div className="outer-container">
       <div className="login-container">
@@ -22,9 +24,8 @@ function Login() {
           <input type="password" placeholder="Password" />
           <button type="button" onClick={handleLogin}>Login</button>
           <button type="button" onClick={handleGuestLogin} className="guest-button">Continue as Guest</button>
-          <button type="button" onClick={() => navigate('/signup')} className="guest-button">
-          Sign Up
-        </button>
+          <button type="button" onClick={() => navigate('/signup')} className="guest-button">Sign Up</button>
+        <button type="button" onClick={() => navigate('/admin')} className="guest-button">Admin</button>
         </form>
       </div>
     </div>
