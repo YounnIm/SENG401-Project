@@ -22,6 +22,9 @@ function Login() {
           <input type="password" placeholder="Password" />
           <button type="button" onClick={handleLogin}>Login</button>
           <button type="button" onClick={handleGuestLogin} className="guest-button">Continue as Guest</button>
+          <button type="button" onClick={() => navigate('/signup')} className="guest-button">
+          Sign Up
+        </button>
         </form>
       </div>
     </div>
