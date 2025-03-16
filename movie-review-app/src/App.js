@@ -5,6 +5,7 @@ import MovieList from './components/MovieList';
 import MovieDetail from './components/MovieDetail';
 import Summary from './components/Summary';
 import SignUp from './components/SignUp'; 
+import Admin from './components/Admin';
 import './App.css';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route path="/movies" element={<MovieList />} />
         <Route path="/movie/:id" element={<MovieDetail />} />
         <Route path="/summary" element={<Summary />} />
+        <Route path="/admin" element={<Admin />} />
         <Route path="/signup" element={<SignUp />} /> {/* Add this route */}
       </Routes>
       <footer>
