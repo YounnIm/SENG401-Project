@@ -29,6 +29,17 @@ def add_movie_controller(data):
         }
     }
 
+def get_movie_by_id_controller(movie_id):
+    movie = Movie.query.get(movie_id)
+    if movie:
+        return {
+            "id": movie.id,
+            "title": movie.title,
+            "plot": movie.plot,
+            "poster_url": movie.poster_url,
+        }
+    return None
+
 def delete_movie_controller(movie_id):
     """Delete a movie by ID."""
     print(f"Attempting to delete movie with ID: {movie_id}")

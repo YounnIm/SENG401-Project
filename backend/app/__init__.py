@@ -1,11 +1,10 @@
 import pymysql
-
-pymysql.install_as_MySQLdb()
 from flask import Flask
 from .config import Config
 from .models import db
 from flask_cors import CORS
 
+pymysql.install_as_MySQLdb()
 
 def create_app():
     app = Flask(__name__)
