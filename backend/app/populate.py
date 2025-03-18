@@ -2,6 +2,7 @@ import requests
 from app import create_app, db
 from app.models import Movie
 
+
 # Put your actual OMDB API key here
 OMDB_API_KEY = "c3300e02"
 MOVIE_TITLES = [
@@ -46,7 +47,6 @@ with app.app_context():
             # Create a new Movie object
             new_movie = Movie(
                 title=movie_title,
-                release_date=release_date,
                 plot=plot,
                 poster_url=poster_url,
             )

@@ -1,5 +1,5 @@
 from flask import request, jsonify
-from app.controllers import add_review_controller, get_all_movies_controller, register_user_controller, login_user_controller
+from app.controllers import delete_movie_controller, add_review_controller, get_all_movies_controller, register_user_controller, login_user_controller, add_movie_controller
 import requests
 import os
 
@@ -15,6 +15,19 @@ def register_routes(app):
         data = request.json
         result = add_review_controller(data)
         return jsonify(result), 201
+    
+    @app.route('/add_movie', methods=['POST'])
+    def add_movie():
+        data = request.json
+        result = add_movie_controller(data)
+        return jsonify(result), 201
+
+    @app.route("/movies/<int:movie_id>", methods=["DELETE"])
+    def remove_movie(movie_id):
+        """API endpoint to delete a movie by ID."""
+        if delete_movie_controller(movie_id):
+            return jsonify({"message": "Movie deleted successfully"})
+        return jsonify({"error": "Movie not found"}), 404
 
     @app.route('/register', methods=['POST'])
     def register():
