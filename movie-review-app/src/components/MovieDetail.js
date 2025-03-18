@@ -1,22 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../App.css';
-import ReviewForm from '../components/ReviewForm'; // Import the new review form
+import ReviewForm from '../components/ReviewForm';
 
 function MovieDetail() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
+  const [userId, setUserId] = useState(null);  // Define userId and setUserId
 
   // Fetch movie details from backend
   useEffect(() => {
-    fetch(`http://localhost:5000/movies/${id}`)  // Adjust this URL as necessary
+    fetch(`http://localhost:5000/movies/${id}`)
       .then(response => response.json())
       .then(data => {
         setMovie(data);
       })
       .catch(error => console.log(error));
   }, [id]);
+
+  // Fetch userId from localStorage or session
+  useEffect(() => {
+    const storedUserId = localStorage.getItem('userId');  // Fetch userId from localStorage
+    if (storedUserId) {
+      setUserId(storedUserId);
+    }
+  }, []);
 
   if (!movie) {
     return <h1>Loading...</h1>;
@@ -42,8 +51,8 @@ function MovieDetail() {
       <button onClick={handleSummarize}>Summarize Feedback</button>
       <button className="nav-button" onClick={() => navigate('/movies')}>Back to Movie List</button>
 
-      {/* Add review form */}
-      <ReviewForm movieTitle={movie.title} />
+      {/* Pass userId to ReviewForm */}
+      <ReviewForm movieTitle={movie.title} movieId={movie.id} userId={userId} />
     </div>
   );
 }
