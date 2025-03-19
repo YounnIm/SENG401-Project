@@ -6,20 +6,18 @@ function Login() {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [userId, setUserId] = useState(null);  // Define userId and setUserId
 
   const handleLogin = () => {
     fetch('http://localhost:5000/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password }),
+      credentials: 'include',  // Required for sessions
     })
       .then(response => response.json())
       .then(data => {
         if (data.message === "Login successful!") {
-          setUserId(data.user_id);
-          localStorage.setItem('userId', data.user_id);  // Store userId in localStorage
-          navigate('/movies');
+          navigate('/movies');  // Navigate to the movies page
         } else {
           alert(data.message);
         }

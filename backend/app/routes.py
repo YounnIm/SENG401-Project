@@ -1,4 +1,5 @@
 from flask import request, jsonify, session
+from app.models import db, Review, User
 from app.controllers import (
     register_user_controller,
     login_user_controller,
@@ -24,7 +25,8 @@ def register_routes(app):
         result = login_user_controller(data)
         if result.get("message") == "Login successful!":
             session['user_id'] = result['user_id']  # Store user ID in session
-        return jsonify(result)
+            return jsonify(result), 200
+        return jsonify(result), 401
 
     @app.route('/logout', methods=['POST'])
     def logout():
@@ -45,12 +47,24 @@ def register_routes(app):
 
     @app.route('/add_review', methods=['POST'])
     def add_review():
-        data = request.json
         if 'user_id' not in session:
-            return jsonify({"error": "User not logged in"}), 401
-        data['user_id'] = session['user_id']  # Add user ID to review data
-        result = add_review_controller(data)
-        return jsonify(result), 201
+            return jsonify({"error": "Unauthorized"}), 401
+
+        data = request.json
+        user_id = session['user_id']  # Get user ID from session
+
+        try:
+            new_review = Review(
+                user_id=user_id,
+                movie_id=data['movie_id'],
+                review_text=data['review_text'],
+            )
+            db.session.add(new_review)
+            db.session.commit()
+            return jsonify({"message": "Review added!"}), 201
+        except Exception as e:
+            print("Error:", str(e))  # Log the error details
+            return jsonify({"error": "Failed to add review"}), 422
 
     @app.route('/add_movie', methods=['POST'])
     def add_movie():
@@ -63,6 +77,23 @@ def register_routes(app):
         if delete_movie_controller(movie_id):
             return jsonify({"message": "Movie deleted successfully"})
         return jsonify({"error": "Movie not found"}), 404
+    
+    @app.route('/movies/<int:movie_id>/reviews', methods=['GET'])
+    def get_reviews(movie_id):
+        reviews = (
+            db.session.query(Review, User.username)
+            .join(User, Review.user_id == User.id)
+            .filter(Review.movie_id == movie_id)
+            .all()
+        )
+        result = []
+        for review, username in reviews:
+            result.append({
+                "id": review.id,
+                "username": username,  # Include the username
+                "review_text": review.review_text,
+            })
+        return jsonify(result), 200
 
     @app.route('/summary', methods=['POST'])
     def get_summary():

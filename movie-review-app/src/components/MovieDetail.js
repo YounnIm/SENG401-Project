@@ -7,7 +7,8 @@ function MovieDetail() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
-  const [userId, setUserId] = useState(null);  // Define userId and setUserId
+  const [reviews, setReviews] = useState([]);
+  const [userId, setUserId] = useState(null);
 
   // Fetch movie details from backend
   useEffect(() => {
@@ -19,9 +20,19 @@ function MovieDetail() {
       .catch(error => console.log(error));
   }, [id]);
 
+  // Fetch reviews for the movie
+  useEffect(() => {
+    fetch(`http://localhost:5000/movies/${id}/reviews`)
+      .then(response => response.json())
+      .then(data => {
+        setReviews(data);
+      })
+      .catch(error => console.log(error));
+  }, [id]);
+
   // Fetch userId from localStorage or session
   useEffect(() => {
-    const storedUserId = localStorage.getItem('userId');  // Fetch userId from localStorage
+    const storedUserId = localStorage.getItem('userId');
     if (storedUserId) {
       setUserId(storedUserId);
     }
@@ -53,6 +64,21 @@ function MovieDetail() {
 
       {/* Pass userId to ReviewForm */}
       <ReviewForm movieTitle={movie.title} movieId={movie.id} userId={userId} />
+
+      {/* Display reviews */}
+      <div className="reviews-section">
+        <h2>Reviews</h2>
+        {reviews.length > 0 ? (
+          reviews.map((review) => (
+            <div key={review.id} className="review">
+              <p><strong>{review.username}</strong></p>
+              <p>{review.review_text}</p>
+            </div>
+          ))
+        ) : (
+          <p>No reviews yet. Be the first to review this movie!</p>
+        )}
+      </div>
     </div>
   );
 }
