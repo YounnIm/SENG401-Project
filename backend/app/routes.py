@@ -1,5 +1,5 @@
 from flask import request, jsonify, session
-from app.models import db, Review, User
+from app.models import db, Review, User, Movie
 from app.controllers import (
     register_user_controller,
     login_user_controller,
@@ -93,12 +93,28 @@ def register_routes(app):
                 "username": username,  # Include the username
                 "review_text": review.review_text,
             })
+        for res in result:
+            print(res['review_text'])
         return jsonify(result), 200
 
     @app.route('/summary', methods=['POST'])
     def get_summary():
         data = request.json
         movie_title = data.get('movieTitle')
+        movie = db.session.query(Movie).filter_by(title=movie_title).first()
+
+        if not movie:
+            return jsonify({"error": "Movie not found"}), 404
+
+        movie_id = movie.id
+
+        reviews = db.session.query(Review).filter_by(movie_id=movie_id).all()
+
+        if not reviews:
+            return jsonify({"error": "No reviews found for this movie"}), 404
+        
+        review_texts = " ".join([review.review_text for review in reviews])
+        prompt = f"Summarize these reviews for the movie '{movie_title}': {review_texts}"
 
         cohere_api_key = os.getenv('COHERE_API_KEY')
         headers = {
@@ -107,13 +123,14 @@ def register_routes(app):
         }
         payload = {
             "model": "command",
-            "prompt": f"Summarize reviews for the movie {movie_title}:",
+            "prompt": prompt,
             "max_tokens": 100
         }
         response = requests.post("https://api.cohere.ai/v1/generate", headers=headers, json=payload)
 
         if response.status_code == 200:
             summary = response.json()["generations"][0]["text"]
+            print(summary)
             return jsonify({"summary": summary})
         else:
             return jsonify({"error": "Failed to generate summary"}), 500
