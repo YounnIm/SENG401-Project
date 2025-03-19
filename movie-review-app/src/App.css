@@ -225,3 +225,18 @@ textarea {
 .remove-button:hover {
   background-color: #cc0000;
 }
+
+.reviews-section {
+  margin-top: 20px;
+}
+
+.review {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.review p {
+  margin: 0;
+}

@@ -1,14 +1,36 @@
 import React, { useState } from 'react';
 import '../App.css';
 
-function ReviewForm({ movieTitle }) {
+function ReviewForm({ movieTitle, movieId, userId }) {
   const [review, setReview] = useState('');
-  const [submittedReview, setSubmittedReview] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSubmittedReview(review);
-    setReview('');
+
+    fetch('http://localhost:5000/add_review', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        movie_id: movieId,
+        review_text: review,
+      }),
+      credentials: 'include',
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to submit review');
+        }
+        return response.json();
+      })
+      .then(data => {
+        alert(data.message);
+        setReview('');
+        window.location.reload();  // Refresh the page to show the new review
+      })
+      .catch(error => {
+        console.error('Error submitting review:', error);
+        alert('You must be logged in to submit a review.');
+      });
   };
 
   return (
@@ -24,13 +46,6 @@ function ReviewForm({ movieTitle }) {
         />
         <button type="submit">Submit Review</button>
       </form>
-
-      {submittedReview && (
-        <div className="review-display">
-          <h3>Your Review:</h3>
-          <p>{submittedReview}</p>
-        </div>
-      )}
     </div>
   );
 }

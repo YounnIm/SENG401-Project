@@ -9,11 +9,9 @@ class User(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), unique=True, nullable=False)
-    email = db.Column(db.String(255), unique=True, nullable=False)
-    password = db.Column(db.String(255), nullable=False)  # Plain password
-    reviews = db.relationship(
-        "Review", backref="user", cascade="all, delete", lazy=True
-    )
+    #email = db.Column(db.String(255), unique=True, nullable=False) maybe add emails?
+    password = db.Column(db.String(255), nullable=False)  # Store plain text passwords
+    reviews = db.relationship("Review", backref="user", cascade="all, delete", lazy=True)
 
 
 class Movie(db.Model):
@@ -34,5 +32,5 @@ class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     movie_id = db.Column(db.Integer, db.ForeignKey("movies.id"), nullable=False)
-    review_text = db.Column(db.Text)
+    review_text = db.Column(db.Text, nullable=False)
  
