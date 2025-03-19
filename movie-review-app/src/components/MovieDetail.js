@@ -1,23 +1,45 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../App.css';
-import ReviewForm from '../components/ReviewForm'; // Import the new review form
-
-// Movie database
-const movies = [
-  { id: 1, title: 'Inception', description: 'A mind-bending thriller.', image: 'https://image.tmdb.org/t/p/w1280/ljsZTbVsrQSqZgWeep2B1QiDKuh.jpg' },
-  { id: 2, title: 'Mufasa: The Lion King', description: 'A journey into the past of the Lion King.', image: 'https://image.tmdb.org/t/p/w1280/9bXHaLlsFYpJUutg4E6WXAjaxDi.jpg' },
-  { id: 3, title: 'Captain America: Brave New World', description: 'Captain America returns in an epic adventure.', image: 'https://image.tmdb.org/t/p/w1280/pzIddUEMWhWzfvLI3TwxUG2wGoi.jpg' },
-];
+import ReviewForm from '../components/ReviewForm';
 
 function MovieDetail() {
   const navigate = useNavigate();
   const { id } = useParams();
+  const [movie, setMovie] = useState(null);
+  const [reviews, setReviews] = useState([]);
+  const [userId, setUserId] = useState(null);
 
-  const movie = movies.find((m) => m.id === parseInt(id));
+  // Fetch movie details from backend
+  useEffect(() => {
+    fetch(`http://localhost:5000/movies/${id}`)
+      .then(response => response.json())
+      .then(data => {
+        setMovie(data);
+      })
+      .catch(error => console.log(error));
+  }, [id]);
+
+  // Fetch reviews for the movie
+  useEffect(() => {
+    fetch(`http://localhost:5000/movies/${id}/reviews`)
+      .then(response => response.json())
+      .then(data => {
+        setReviews(data);
+      })
+      .catch(error => console.log(error));
+  }, [id]);
+
+  // Fetch userId from localStorage or session
+  useEffect(() => {
+    const storedUserId = localStorage.getItem('userId');
+    if (storedUserId) {
+      setUserId(storedUserId);
+    }
+  }, []);
 
   if (!movie) {
-    return <h1>Movie not found</h1>;
+    return <h1>Loading...</h1>;
   }
 
   const handleSummarize = () => {
@@ -27,14 +49,36 @@ function MovieDetail() {
   return (
     <div className="container">
       <h1>{movie.title}</h1>
-      <img src={movie.image} alt={movie.title} className="movie-poster" />
-      <p>{movie.description}</p>
+      <img
+        src={movie.poster_url || "https://motivatevalmorgan.com/wp-content/uploads/2016/06/default-movie-1-3-476x700.jpg"}
+        alt={movie.title || "Default Movie Title"}
+        className="movie-poster"
+        onError={(e) => {
+          e.target.src = "https://motivatevalmorgan.com/wp-content/uploads/2016/06/default-movie-1-3-476x700.jpg";
+        }}
+      />
+      <p>{movie.plot || "No description available."}</p>
 
       <button onClick={handleSummarize}>Summarize Feedback</button>
       <button className="nav-button" onClick={() => navigate('/movies')}>Back to Movie List</button>
 
-      {/* Add review form */}
-      <ReviewForm movieTitle={movie.title} />
+      {/* Pass userId to ReviewForm */}
+      <ReviewForm movieTitle={movie.title} movieId={movie.id} userId={userId} />
+
+      {/* Display reviews */}
+      <div className="reviews-section">
+        <h2>Reviews</h2>
+        {reviews.length > 0 ? (
+          reviews.map((review) => (
+            <div key={review.id} className="review">
+              <p><strong>{review.username}</strong></p>
+              <p>{review.review_text}</p>
+            </div>
+          ))
+        ) : (
+          <p>No reviews yet. Be the first to review this movie!</p>
+        )}
+      </div>
     </div>
   );
 }

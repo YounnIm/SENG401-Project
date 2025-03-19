@@ -8,9 +8,20 @@ function SignUp() {
   const [password, setPassword] = useState('');
 
   const handleSignUp = () => {
-    // TODO: Add backend logic to save user data
-    console.log('Sign Up:', { username, password });
-    navigate('/'); // Redirect to login page after signup
+    fetch('http://localhost:5000/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.message === "User registered!") {
+          navigate('/');
+        } else {
+          alert(data.message);
+        }
+      })
+      .catch(error => console.error('Error signing up:', error));
   };
 
   return (
@@ -30,13 +41,9 @@ function SignUp() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button type="button" onClick={handleSignUp}>
-            Sign Up
-          </button>
+          <button type="button" onClick={handleSignUp}>Sign Up</button>
         </form>
-        <button type="button" onClick={() => navigate('/')} className="guest-button">
-          Back to Login
-        </button>
+        <button type="button" onClick={() => navigate('/')} className="guest-button">Back to Login</button>
       </div>
     </div>
   );
