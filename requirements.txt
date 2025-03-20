@@ -4,3 +4,5 @@ Flask-SQLAlchemy==3.0.5
 pymysql==1.0.2
 python-dotenv==0.21.0
 requests==2.31.0
+cryptography==41.0.7
+mysqlclient==2.2.0 
