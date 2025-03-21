@@ -10,3 +10,6 @@ To run the react app begin another teminal navigate to the movie-review-app fold
 
 
 To access the admin panel please enter "Admin" for the username and "123" for the password.
+
+
+AI was used for debugging and refactoring in this project
