@@ -1,4 +1,4 @@
-##This is a movie review app called CommunityReviews
+## This is a movie review app called CommunityReviews
 
 To launch make sure you have Flask and React installed along with all modules for backend (flask, flask_cors, etc)
 
