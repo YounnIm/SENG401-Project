@@ -226,17 +226,87 @@ textarea {
   background-color: #cc0000;
 }
 
-.reviews-section {
+.review-section {
   margin-top: 20px;
+  padding: 50px;
+  background-color: #2a2a2a;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 600px; /* Keeps the width fixed */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.review-section h2 {
+  color: #ffffff;
+  text-align: center;
+  font-size: 1.8rem;
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: none;
+  background-color: #3a3a3a;
+  color: #ffffff;
+  font-size: 1rem;
+  resize: none;
+}
+
+.review-display {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #333;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 600px;
 }
 
 .review {
-  border: 1px solid #ccc;
-  padding: 10px;
+  background-color: #444;
+  padding: 15px;
+  border-radius: 8px;
   margin-bottom: 10px;
-  border-radius: 5px;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+
+  max-height: 150px;
+  overflow-y: auto;
+  display: block;
+}
+
+
+.review:hover {
+  transform: scale(1.02);
+  background-color: #505050;
 }
 
 .review p {
   margin: 0;
+  font-size: 1rem;
+  color: #cccccc;
+}
+
+/* Submit Button */
+.submit-button {
+  display: block;
+  width: 100%;
+  max-width: 600px;
+  margin-top: 10px;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
 }

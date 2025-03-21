@@ -8,21 +8,25 @@ function Login() {
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    fetch('http://localhost:5000/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password }),
-      credentials: 'include',  // Required for sessions
-    })
-      .then(response => response.json())
-      .then(data => {
-        if (data.message === "Login successful!") {
-          navigate('/movies');  // Navigate to the movies page
-        } else {
-          alert(data.message);
-        }
+    if (username === 'Admin' && password === '123') {
+      navigate('/admin');  // Navigate to admin panel if credentials match
+    } else {
+      fetch('http://localhost:5000/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+        credentials: 'include',
       })
-      .catch(error => console.error('Error logging in:', error));
+        .then(response => response.json())
+        .then(data => {
+          if (data.message === "Login successful!") {
+            navigate('/movies');  // Navigate to movies page for regular users
+          } else {
+            alert(data.message);
+          }
+        })
+        .catch(error => console.error('Error logging in:', error));
+    }
   };
 
   const handleGuestLogin = () => {
@@ -49,7 +53,6 @@ function Login() {
           <button type="button" onClick={handleLogin}>Login</button>
           <button type="button" onClick={handleGuestLogin} className="guest-button">Continue as Guest</button>
           <button type="button" onClick={() => navigate('/signup')} className="guest-button">Sign Up</button>
-          <button type="button" onClick={() => navigate('/admin')} className="guest-button">Admin</button>
         </form>
       </div>
     </div>
