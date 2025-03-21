@@ -81,3 +81,21 @@ def login_user_controller(data):
     if user and user.password == data['password']:  # Compare plain text passwords
         return {"message": "Login successful!", "user_id": user.id}
     return {"message": "Invalid credentials"}
+
+def get_review_controller(movie_id):
+    reviews = (
+            db.session.query(Review, User.username)
+            .join(User, Review.user_id == User.id)
+            .filter(Review.movie_id == movie_id)
+            .all()
+        )
+    result = []
+    for review, username in reviews:
+        result.append({
+                "id": review.id,
+                "username": username,  
+                "review_text": review.review_text,
+            })
+    for res in result:
+        print(res['review_text'])
+    return result

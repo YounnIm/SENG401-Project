@@ -8,6 +8,7 @@ from app.controllers import (
     get_movie_by_id_controller,
     delete_movie_controller,
     add_movie_controller,
+    get_review_controller,
 )
 import requests
 import os
@@ -51,7 +52,7 @@ def register_routes(app):
             return jsonify({"error": "Unauthorized"}), 401
 
         data = request.json
-        user_id = session['user_id']  # Get user ID from session
+        user_id = session['user_id']  
 
         try:
             new_review = Review(
@@ -80,21 +81,7 @@ def register_routes(app):
     
     @app.route('/movies/<int:movie_id>/reviews', methods=['GET'])
     def get_reviews(movie_id):
-        reviews = (
-            db.session.query(Review, User.username)
-            .join(User, Review.user_id == User.id)
-            .filter(Review.movie_id == movie_id)
-            .all()
-        )
-        result = []
-        for review, username in reviews:
-            result.append({
-                "id": review.id,
-                "username": username,  # Include the username
-                "review_text": review.review_text,
-            })
-        for res in result:
-            print(res['review_text'])
+        result = get_review_controller(movie_id)
         return jsonify(result), 200
 
     @app.route('/summary', methods=['POST'])
