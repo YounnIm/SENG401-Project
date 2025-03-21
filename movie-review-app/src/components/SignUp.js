@@ -28,7 +28,7 @@ function SignUp() {
     <div className="outer-container">
       <div className="login-container">
         <h1>Sign Up</h1>
-        <form className="login-form">
+        <div className="login-form">
           <input
             type="text"
             placeholder="Username"
@@ -41,9 +41,11 @@ function SignUp() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button type="button" onClick={handleSignUp}>Sign Up</button>
-        </form>
-        <button type="button" onClick={() => navigate('/')} className="guest-button">Back to Login</button>
+          <div className="button-container">
+            <button type="button" className="secondary-button" onClick={handleSignUp}>Sign Up</button>
+            <button type="button" className="tertiary-button" onClick={() => navigate('/')}>Back to Login</button>
+          </div>
+        </div>
       </div>
     </div>
   );
