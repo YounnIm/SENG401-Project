@@ -8,7 +8,7 @@ function MovieList() {
 
   // Fetch movies from backend
   useEffect(() => {
-    fetch('http://localhost:5000/movies')  // Adjust this URL as necessary
+    fetch('http://localhost:5000/movies')
       .then(response => response.json())
       .then(data => {
         setMovies(data);
@@ -18,6 +18,24 @@ function MovieList() {
 
   const handleMovieClick = (movieId) => {
     navigate(`/movie/${movieId}`);
+  };
+
+  const handleLogout = () => {
+    // Call the logout endpoint to clear the session on the server
+    fetch('http://localhost:5000/logout', {
+      method: 'POST',
+      credentials: 'include', // Required for sessions
+    })
+      .then(response => response.json())
+      .then(data => {
+        // After successful logout, navigate to login page
+        navigate('/');
+      })
+      .catch(error => {
+        console.error('Error logging out:', error);
+        // Even if there's an error, redirect to login
+        navigate('/');
+      });
   };
 
   return (
@@ -37,7 +55,7 @@ function MovieList() {
           </div>
         ))}
       </div>
-      <button className="nav-button" onClick={() => navigate('/')}>Back to Login</button>
+      <button className="nav-button" onClick={handleLogout}>Back to Login</button>
     </div>
   );
 }

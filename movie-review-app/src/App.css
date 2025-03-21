@@ -226,17 +226,224 @@ textarea {
   background-color: #cc0000;
 }
 
-.reviews-section {
+.review-section {
   margin-top: 20px;
+  padding: 50px;
+  background-color: #2a2a2a;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 600px; /* Keeps the width fixed */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.review-section h2 {
+  color: #ffffff;
+  text-align: center;
+  font-size: 1.8rem;
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: none;
+  background-color: #3a3a3a;
+  color: #ffffff;
+  font-size: 1rem;
+  resize: none;
+}
+
+.review-display {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #333;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 600px;
 }
 
 .review {
-  border: 1px solid #ccc;
-  padding: 10px;
+  background-color: #444;
+  padding: 15px;
+  border-radius: 8px;
   margin-bottom: 10px;
-  border-radius: 5px;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+
+  max-height: 150px;
+  overflow-y: auto;
+  display: block;
+}
+
+
+.review:hover {
+  transform: scale(1.02);
+  background-color: #505050;
 }
 
 .review p {
   margin: 0;
+  font-size: 1rem;
+  color: #cccccc;
+}
+
+/* Submit Button */
+.submit-button {
+  display: block;
+  width: 100%;
+  max-width: 600px;
+  margin-top: 10px;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}
+
+/* Login Page Styling */
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #1a1a1a;
+  color: white;
+  overflow-y: auto;
+}
+
+.login-header {
+  padding: 2rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.login-header h1 {
+  color: #4d94ff;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.login-header p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+.login-container {
+  background-color: #34495e;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  padding: 2rem;
+  margin: 1rem auto;
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-container h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #4d94ff;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form input {
+  width: 93%; /* Adjust this value as needed */
+  padding: 12px 15px;
+  margin: 10px 0;
+  border-radius: 4px;
+  border: none;
+  font-size: 1rem;
+}
+
+.login-form button {
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+}
+
+.login-button {
+  background-color: #007bff;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.login-button:hover {
+  background-color: #3a7bd5;
+}
+
+.signup-button {
+  background-color: #007bff;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.signup-button:hover {
+  background-color: #3a7bd5;
+}
+
+.guest-button {
+  background-color: #007bff;
+  color: white;
+}
+
+.guest-button:hover {
+  background-color: #3a7bd5;
+}
+
+.about-section {
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 800px;
+  background-color: #2c3e50;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.about-section h2 {
+  color: #4d94ff;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.about-content {
+  line-height: 1.6;
+}
+
+.about-content p {
+  margin-bottom: 1rem;
+}
+
+.about-content ul {
+  margin-left: 2rem;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .login-container {
+    margin: 1rem;
+    width: auto;
+  }
+  
+  .about-section {
+    margin: 1rem;
+  }
 }
